@@ -1,0 +1,77 @@
+version: 2.1
+
+workflows:
+  test-php-json-property:
+    jobs:
+      - code-style
+      - static-analysis
+      - coverage
+      - infection-testing
+jobs:
+  code-style:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - checkout
+      - setup-container
+      - run-make-target:
+          target: "code-style"
+  static-analysis:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - checkout
+      - setup-container
+      - run-make-target:
+          target: "static-analysis"
+  coverage:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - checkout
+      - setup-container
+      - setup-coverage
+      - run-make-target:
+          target: "coverage"
+      - upload-coverage
+  infection-testing:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - checkout
+      - setup-container
+      - setup-coverage
+      - run-make-target:
+          target: "infection-testing"
+
+commands:
+  setup-container:
+    description: "Setup container (install needed dependencies)"
+    steps:
+      - run:
+          command: |
+            apk add make curl
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+            composer install
+  setup-coverage:
+    description: "Setup container (install needed dependencies)"
+    steps:
+      - run:
+          command: |
+            apk add autoconf gcc g++ git
+            pecl install pcov
+            docker-php-ext-enable pcov
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+  upload-coverage:
+    description: "Upload coverage"
+    steps:
+      - run:
+          command: ./cc-test-reporter after-build --coverage-input-type clover
+  run-make-target:
+    description: "Run a make target"
+    parameters:
+      target:
+        type: string
+    steps:
+      - run: make << parameters.target >>
