@@ -12,28 +12,46 @@ jobs:
     docker:
       - image: "php:7.4-cli-alpine3.11"
     steps:
+      - checkout
+      - setup-container
       - run-make-target:
           target: "code-style"
   static-analysis:
     docker:
       - image: "php:7.4-cli-alpine3.11"
     steps:
+      - checkout
+      - setup-container
       - run-make-target:
           target: "static-analysis"
   coverage:
     docker:
       - image: "php:7.4-cli-alpine3.11"
     steps:
+      - checkout
+      - setup-container
       - run-make-target:
           target: "coverage"
   infection-testing:
     docker:
       - image: "php:7.4-cli-alpine3.11"
     steps:
+      - checkout
+      - setup-container
       - run-make-target:
           target: "infection-testing"
 
 commands:
+  setup-container:
+    description: "Setup container (install needed dependencies)"
+    steps:
+      - run:
+          command: |
+            apk add make curl autoconf gcc g++
+            pecl install pcov
+            docker-php-ext-enable pcov
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+            composer install
   run-make-target:
     description: "Run a make target"
     parameters:
