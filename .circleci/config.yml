@@ -1,0 +1,43 @@
+version: 2.1
+
+workflows:
+  test-php-json-property:
+    jobs:
+      - code-style
+      - static-analysis
+      - coverage
+      - infection-testing
+jobs:
+  code-style:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - run-make-target:
+          target: "code-style"
+  static-analysis:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - run-make-target:
+          target: "static-analysis"
+  coverage:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - run-make-target:
+          target: "coverage"
+  infection-testing:
+    docker:
+      - image: "php:7.4-cli-alpine3.11"
+    steps:
+      - run-make-target:
+          target: "infection-testing"
+
+commands:
+  run-make-target:
+    description: "Run a make target"
+    parameters:
+      target:
+        type: string
+    steps:
+      - run: make << parameters.target >>
