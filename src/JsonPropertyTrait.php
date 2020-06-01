@@ -48,10 +48,31 @@ trait JsonPropertyTrait
     }
 
     /**
+     * @param bool|false $resolveEmbedded
      * @return array<string, mixed>
      */
-    public function getJsonProperties(): array
+    public function getJsonProperties(bool $resolveEmbedded = false): array
     {
+        if (true === $resolveEmbedded) {
+            return $this->getResolvedJsonProperties($this->jsonProperties);
+        }
+
         return $this->jsonProperties;
+    }
+    /**
+     * @param array $properties
+     * @return array
+     */
+    private function getResolvedJsonProperties(array $properties): array
+    {
+        foreach ($properties as $key => $value) {
+            if (true === is_array($value)) {
+                $properties[$key] = $this->getResolvedJsonProperties($value);
+            } elseif ($value instanceof JsonPropertyInterface) {
+                $properties[$key] = $value->getJsonProperties(true);
+            }
+        }
+
+        return $properties;
     }
 }

@@ -73,4 +73,47 @@ class JsonPropertyTraitTest extends TestCase
         $sot->addJsonProperties($testArray);
         self::assertEquals($expectedResult, json_encode($sot));
     }
+
+    public function testGetJsonProperties() {
+        $sot = new JsonPropertyTestClass();
+        $injectedSot = new JsonPropertyTestClass();
+
+        $testArray = [
+            'key' => ['foo' => 'bar'],
+            'mickey' => ['mouse' => $injectedSot],
+        ];
+
+        $injectedSot->addJsonProperty('bacon', 'love');
+        $sot->addJsonProperties($testArray);
+        self::assertEquals($testArray, $sot->getJsonProperties());
+    }
+
+    public function testGetJsonPropertiesResolveEmbedded() {
+        $sot = new JsonPropertyTestClass();
+        $injectedSot1 = new JsonPropertyTestClass();
+        $injectedSot2 = new JsonPropertyTestClass();
+        $injectedSot2->addJsonProperty('book', 'worm');
+
+
+        $testArray = [
+            'key' => ['foo' => 'bar'],
+            'mickey' => ['mouse' => $injectedSot1],
+        ];
+        $expectedResult = [
+            'key' => ['foo' => 'bar'],
+            'mickey' => [
+                'mouse' => [
+                    'bacon' => 'love',
+                    'another' => [
+                        'book' => 'worm'
+                    ]
+                ]
+            ],
+        ];
+
+        $injectedSot1->addJsonProperty('bacon', 'love');
+        $injectedSot1->addJsonProperty('another', $injectedSot2);
+        $sot->addJsonProperties($testArray);
+        self::assertEquals($expectedResult, $sot->getJsonProperties(true));
+    }
 }

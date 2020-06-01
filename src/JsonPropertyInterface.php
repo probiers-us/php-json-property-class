@@ -18,7 +18,8 @@ interface JsonPropertyInterface extends JsonSerializable
     public function removeJsonProperty(string $key): void;
 
     /**
+     * @param bool|false $resolveEmbedded
      * @return array<string, mixed>
      */
-    public function getJsonProperties(): array;
+    public function getJsonProperties(bool $resolveEmbedded = false): array;
 }
