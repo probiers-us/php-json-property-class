@@ -19,7 +19,7 @@ code-style:
 	${PHPCS}
 
 coverage:
-	${PHPUNIT} && ${COVCHECK} build/logs/phpunit/coverage/coverage.xml 100
+	${PHPUNIT} && ${COVCHECK} build/logs/clover.xml 100
 
 test:
 	${PHPUNIT} --no-coverage
