@@ -67,7 +67,7 @@ commands:
     description: "Upload coverage"
     steps:
       - run:
-          command: ./cc-test-reporter after-build --coverage-input-type clover;
+          command: ./cc-test-reporter after-build --coverage-input-type clover ./build/logs/phpunit/coverage/coverage.xml
   run-make-target:
     description: "Run a make target"
     parameters:
