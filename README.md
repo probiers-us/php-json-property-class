@@ -1,4 +1,9 @@
 # php-json-property
+
+[![CircleCI](https://circleci.com/gh/probiers-us/php-json-property.svg?style=shield)](https://circleci.com/gh/probiers-us/php-json-property/tree/master) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/fec52ba6feaf8534111f/maintainability)](https://codeclimate.com/github/probiers-us/php-json-property-class/maintainability) 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fec52ba6feaf8534111f/test_coverage)](https://codeclimate.com/github/probiers-us/php-json-property-class/test_coverage)
+
 ## Description
 This is a helper to add attributes to an array. This will help,  
 if you need to represent JSON entities / classes and resolve recursively when JSON encoding.
