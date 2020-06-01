@@ -1,8 +1,10 @@
-# php-json-property
+# php-json-property-class
 
-[![CircleCI](https://circleci.com/gh/probiers-us/php-json-property.svg?style=shield)](https://circleci.com/gh/probiers-us/php-json-property/tree/master) 
+[![CircleCI](https://circleci.com/gh/probiers-us/php-json-property-class.svg?style=shield)](https://circleci.com/gh/probiers-us/php-json-property-class) 
 [![Maintainability](https://api.codeclimate.com/v1/badges/fec52ba6feaf8534111f/maintainability)](https://codeclimate.com/github/probiers-us/php-json-property-class/maintainability) 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/fec52ba6feaf8534111f/test_coverage)](https://codeclimate.com/github/probiers-us/php-json-property-class/test_coverage)
+[![Latest Stable Version](https://poser.pugx.org/probiers-us/php-json-property-class/v/stable)](https://packagist.org/packages/probiers-us/php-json-property-class) 
+[![Latest Unstable Version](https://poser.pugx.org/probiers-us/php-json-property-class/v/unstable)](https://packagist.org/packages/probiers-us/php-json-property-class) 
 
 ## Description
 This is a helper to add attributes to an array. This will help,  
