@@ -7,7 +7,7 @@ trait JsonPropertyTrait
     protected array $jsonProperties = [];
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function setJsonProperties(array $properties): void
     {
@@ -15,7 +15,7 @@ trait JsonPropertyTrait
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function addJsonProperties(array $properties): void
     {
@@ -53,7 +53,7 @@ trait JsonPropertyTrait
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function jsonSerialize()
     {

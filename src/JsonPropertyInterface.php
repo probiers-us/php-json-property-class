@@ -8,12 +8,12 @@ interface JsonPropertyInterface extends JsonSerializable
 {
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function setJsonProperties(array $properties): void;
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function addJsonProperties(array $properties): void;
 
@@ -35,7 +35,7 @@ interface JsonPropertyInterface extends JsonSerializable
     public function removeJsonProperty(string $key): void;
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function jsonSerialize();
 
