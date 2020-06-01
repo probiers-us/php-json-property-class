@@ -3,6 +3,7 @@
 namespace ProbiersUs\JsonProperty\Tests;
 
 use PHPUnit\Framework\TestCase;
+use ProbiersUs\JsonProperty\JsonPropertyException;
 use ProbiersUs\JsonProperty\Tests\Helper\JsonPropertyTestClass;
 
 class JsonPropertyTraitTest extends TestCase
@@ -43,6 +44,21 @@ class JsonPropertyTraitTest extends TestCase
 
         $sot->removeJsonProperty('key');
         self::assertEquals([], $sot->getJsonProperties());
+    }
+
+    public function testGetNonExistingProperty() {
+        $sot = new JsonPropertyTestClass();
+
+        self::expectException(JsonPropertyException::class);
+
+        $sot->getJsonProperty('key');
+    }
+
+    public function testGetProperty() {
+        $sot = new JsonPropertyTestClass();
+        $sot->addJsonProperty('key', 'value');
+
+        self::assertEquals('value', $sot->getJsonProperty('key'));
     }
 
     public function testJsonSerialize() {

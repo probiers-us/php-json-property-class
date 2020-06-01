@@ -6,6 +6,17 @@ use JsonSerializable;
 
 interface JsonPropertyInterface extends JsonSerializable
 {
+
+    /**
+     * @param array $properties
+     */
+    public function setJsonProperties(array $properties): void;
+
+    /**
+     * @param array $properties
+     */
+    public function addJsonProperties(array $properties): void;
+
     /**
      * @param string $key
      * @param mixed $value
@@ -14,8 +25,19 @@ interface JsonPropertyInterface extends JsonSerializable
 
     /**
      * @param string $key
+     * @return mixed
+     */
+    public function getJsonProperty(string $key);
+
+    /**
+     * @param string $key
      */
     public function removeJsonProperty(string $key): void;
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize();
 
     /**
      * @param bool|false $resolveEmbedded

@@ -33,6 +33,19 @@ trait JsonPropertyTrait
 
     /**
      * @param string $key
+     * @return mixed
+     */
+    public function getJsonProperty(string $key)
+    {
+        if (false === array_key_exists($key, $this->jsonProperties)) {
+            throw new JsonPropertyException(sprintf('Property with key %s not found', $key));
+        }
+
+        return $this->jsonProperties[$key];
+    }
+
+    /**
+     * @param string $key
      */
     public function removeJsonProperty(string $key): void
     {
