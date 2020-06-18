@@ -10,6 +10,11 @@
 This is a helper to add attributes to an array. This will help,  
 if you need to represent JSON entities / classes and resolve recursively when JSON encoding.
 
+## Installation
+```
+composer require probiers-us/php-json-property
+```
+
 ## Usage
 You can use `JsonPropertyInterface` and `JsonPropertyTrait` in the classes  
 you want to add this. Calling `json_encode` will recursively resolve all embedded  
